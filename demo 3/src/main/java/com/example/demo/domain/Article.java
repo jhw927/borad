@@ -25,10 +25,9 @@ import java.util.Set;
         @Index(columnList = "createdBy"),
 })
 @Entity
-@EntityListeners(EnableJpaAuditing.class)
 @Setter
 @NoArgsConstructor
-public class Article {
+public class Article extends AuditingFields {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -44,19 +43,6 @@ public class Article {
     private Set<ArticleComment> articleComments = new LinkedHashSet<>() {};
 
 
-    //metadata
-    @CreatedDate
-    @Column
-    private LocalDateTime createdAt;
-    @CreatedBy
-    @Column
-    private String createdBy;
-    @LastModifiedDate
-    @Column
-    private LocalDateTime modifyAt;
-    @LastModifiedBy
-    @Column
-    private String modifiedBy;
 
 
     // 메타데이터는 뺸 본문에서 사용하는 데이터만 생성자로 받는다.

@@ -24,7 +24,7 @@ import java.util.Optional;
 @Entity
 @Setter
 @NoArgsConstructor
-public class ArticleComment {
+public class ArticleComment extends AuditingFields {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,18 +37,6 @@ public class ArticleComment {
     private String hashtag;
 
     //metadata
-    @CreatedDate
-    @Column
-    private LocalDateTime createdAt;
-    @CreatedBy
-    @Column
-    private String createdBy;
-    @LastModifiedDate
-    @Column
-    private LocalDateTime modifyAt;
-    @LastModifiedBy
-    @Column
-    private String modifiedBy;
 
     private ArticleComment(Article article, String content) {
         this.article = article;
