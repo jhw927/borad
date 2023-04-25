@@ -169,7 +169,7 @@ Temporary Items
 
 ### Gradle ###
 .gradle
-.yml
+application.yml
 **/build/
 !src/**/build/
 
