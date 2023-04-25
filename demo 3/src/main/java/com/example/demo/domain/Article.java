@@ -9,9 +9,12 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @ToString
@@ -22,6 +25,7 @@ import java.util.Objects;
         @Index(columnList = "createdBy"),
 })
 @Entity
+@EntityListeners(EnableJpaAuditing.class)
 @Setter
 @NoArgsConstructor
 public class Article {
@@ -34,15 +38,24 @@ public class Article {
     private String content;
     @Column(nullable = false)
     private String hashtag;
+    @ToString.Exclude
+    @OrderBy("id")
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ArticleComment> articleComments = new LinkedHashSet<>() {};
+
 
     //metadata
     @CreatedDate
+    @Column
     private LocalDateTime createdAt;
     @CreatedBy
+    @Column
     private String createdBy;
     @LastModifiedDate
+    @Column
     private LocalDateTime modifyAt;
     @LastModifiedBy
+    @Column
     private String modifiedBy;
 
 
